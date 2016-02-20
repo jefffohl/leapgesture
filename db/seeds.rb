@@ -5,3 +5,10 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Gesture.create([
+  { gesture: "{\"foo\" : \"bar\"}" },
+  { gesture: "{\"foo\" : \"baz\"}" },
+  { gesture: "{\"foo\" : \"bazzle\"}" },
+  { gesture: "{\"foo\" : \"foozle\"}" },
+])

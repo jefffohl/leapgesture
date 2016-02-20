@@ -24,6 +24,8 @@ default: &default
 development:
   <<: *default
   database: leapgesture_development
+  username: <%= ENV['LEAPGESTURE_DATABASE_USERNAME'] %>
+  password: <%= ENV['LEAPGESTURE_DATABASE_PASSWORD'] %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -83,5 +85,5 @@ test:
 production:
   <<: *default
   database: leapgesture_production
-  username: leapgesture
+  username: <%= ENV['LEAPGESTURE_DATABASE_USERNAME'] %>
   password: <%= ENV['LEAPGESTURE_DATABASE_PASSWORD'] %>
