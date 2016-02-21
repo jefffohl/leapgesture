@@ -1,3 +1,3 @@
 class Gesture < ActiveRecord::Base
-	validates :gesture, presence: true
+	validates :data, presence: true
 end

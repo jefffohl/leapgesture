@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($scope, leapController, $resource) {
+  function MainController($scope, leapController, $resource, $log) {
 
     var player = leapController.controller.plugins.playback.player;
 
@@ -23,16 +23,17 @@
     };
 
     $scope.save = function() {
-      var gesture = player.recording.export();
-      var newGesture = new Gestures({'gesture': gesture});
+      //var gesture = player.recording.export();
+      var gesture = "foo";
+      var newGesture = new Gestures({'data': gesture});
       newGesture.$save().then(function(response){
-        console.log("save response: ", response);
+        $log.log("save response: ", response);
       });
     };
 
     // We can retrieve a collection from the server
-    var gestures = Gestures.query(function(response) {
-      console.log("response: ", response);
+    Gestures.query(function(response) {
+      $log.log("response: ", response);
     });
 
   }
