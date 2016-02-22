@@ -54,6 +54,6 @@ class GesturesController < ApplicationController
     end
 
     def gesture_params
-      params.require(:data)
+      params.permit(:data)
     end
 end
