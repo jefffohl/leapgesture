@@ -23,5 +23,6 @@
         controller : controller
       };
     };
+
   }
 })();

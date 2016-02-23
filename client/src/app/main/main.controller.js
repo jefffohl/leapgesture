@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($scope, leapController, $resource, $log) {
+  function MainController($scope, leapController, $resource, $log, $http) {
 
     var player = leapController.controller.plugins.playback.player;
 
@@ -25,12 +25,29 @@
     $scope.player = player;
 
     $scope.play = function(id) {
-      if (!player.recording) {
-        player.setRecording({ recording : {} });
-      }
-      player.setRecording({recording : player.recording.decompress($scope.gestures[id].data)});
-      console.log(player.recording);
-      player.play();
+
+      leapController.controller = new Leap.Controller({background: true})
+        .use('playback', {
+          recording: '/api/gestures/20/data.lz', // this is a test
+          loop: true,
+          pauseHotkey: false,
+          pauseOnHand: false,
+          autoPlay : true
+        })
+        .use('riggedHand')
+        .use('handEntry')
+        .connect();
+
+        /*
+        if (!player.recording) {
+          player.setRecording({ recording : {} });
+        }
+        var newRecording = JSON.parse(player.recording.decompress($scope.gestures[id].data));
+        // var frames = recording.frames;
+        player.setRecording({ recording: newRecording });
+        console.log(player.recording);
+        player.play();
+        */
     };
 
     $scope.record = function() {
@@ -47,14 +64,23 @@
     };
 
     // We can retrieve a collection from the server
-    Gesture.query(function(response) {
+
+    Gesture.index(function(response) {
+      console.log(response);
       angular.forEach(response, function(value){
         if (value.constructor.name === "Resource") {
           $scope.gestures.push(value);
         }
       });
-      console.log($scope.gestures);
     });
+
+    /*
+    $http.get("/api/gestures/20").then(function(response){
+      console.log(response);
+    }, function(error){
+      console.error(error);
+    });
+    */
 
   }
 

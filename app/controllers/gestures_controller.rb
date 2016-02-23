@@ -1,4 +1,5 @@
 class GesturesController < ApplicationController
+  respond_to :json, :lz
   before_action :set_gesture, only: [:show, :update, :destroy]
 
   # GET /gestures
@@ -13,6 +14,14 @@ class GesturesController < ApplicationController
   # GET /gestures/1.json
   def show
     render json: @gesture
+  end
+
+  # GET /gestures?fields=
+  # GET /gestures.json?fields=
+
+  def data
+    @gesturedata = Gesture.select('data').where("id =?" , params[:id])
+    render json: @gesturedata[0][:data]
   end
 
   # POST /gestures
