@@ -35,6 +35,11 @@ canvas {
   left: 0;
 }
 
+#connect-leap {
+  margin-top: 400px !important;
+  -webkit-touch-callout: none;
+}
+
 /**
  *  Do not remove the comments below. It's the markers used by gulp-inject to inject
  *  all your sass files automatically

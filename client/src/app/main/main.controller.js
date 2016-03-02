@@ -8,7 +8,7 @@
   /** @ngInject */
   function MainController($scope, leapController, $resource, $log, $http) {
 
-    var player = leapController.controller.plugins.playback.player;
+    //var player = leapController.controller.plugins.playback.player;
 
     var Gesture = $resource("/api/gestures/:id", { id: "@id" },
       {
@@ -22,22 +22,31 @@
 
     $scope.gestures = [];
 
-    $scope.player = player;
+    // $scope.player = player;
 
     $scope.play = function(id) {
 
-      leapController.controller = new Leap.Controller({background: true})
+      leapController.controller = new Leap.Controller({background: true});
+
+      leapController.controller
         .use('playback', {
           recording: '/api/gestures/20/data.lz', // this is a test
-          loop: true,
+          loop: false,
           pauseHotkey: false,
           pauseOnHand: false,
-          autoPlay : true
+          //requiredProtocolVersion: 6,
+          autoPlay: false
         })
         .use('riggedHand')
-        .use('handEntry')
         .connect();
 
+      var player =  leapController.controller.plugins['playback'].player;
+
+      leapController.controller.on('playback.recordingSet', function() {
+        console.log("recording set");
+        //player.recording.setFrames(player.recording.frameData);
+        player.toggle();
+      });
         /*
         if (!player.recording) {
           player.setRecording({ recording : {} });
@@ -51,7 +60,7 @@
     };
 
     $scope.record = function() {
-      player.record();
+      // player.record();
     };
 
     $scope.save = function() {
