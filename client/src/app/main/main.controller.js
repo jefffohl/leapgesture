@@ -25,42 +25,11 @@
     // $scope.player = player;
 
     $scope.play = function(id) {
-
-      leapController.controller = new Leap.Controller({background: true});
-
-      leapController.controller
-        .use('playback', {
-          recording: '/api/gestures/20/data.lz', // this is a test
-          loop: false,
-          pauseHotkey: false,
-          pauseOnHand: false,
-          //requiredProtocolVersion: 6,
-          autoPlay: false
-        })
-        .use('riggedHand')
-        .connect();
-
-      var player =  leapController.controller.plugins['playback'].player;
-
-      leapController.controller.on('playback.recordingSet', function() {
-        console.log("recording set");
-        //player.recording.setFrames(player.recording.frameData);
-        player.toggle();
-      });
-        /*
-        if (!player.recording) {
-          player.setRecording({ recording : {} });
-        }
-        var newRecording = JSON.parse(player.recording.decompress($scope.gestures[id].data));
-        // var frames = recording.frames;
-        player.setRecording({ recording: newRecording });
-        console.log(player.recording);
-        player.play();
-        */
+      leapController.player.toggle();
     };
 
     $scope.record = function() {
-      // player.record();
+      player.record();
     };
 
     $scope.save = function() {

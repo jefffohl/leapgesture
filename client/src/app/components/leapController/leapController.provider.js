@@ -10,17 +10,22 @@
 
     var controller = new Leap.Controller({background: true})
         .use('playback', {
+          recording: '/api/gestures/20/data.lz', // this is a test
           loop: false,
           pauseHotkey: false,
-          pauseOnHand: false
+          pauseOnHand: false,
+          autoPlay : false
         })
         .use('riggedHand')
-        .use('handEntry')
         .connect();
+
+
+    var player =  controller.plugins['playback'].player;
 
     this.$get = function leapController() {
       return {
-        controller : controller
+        controller : controller,
+        player : player
       };
     };
 
