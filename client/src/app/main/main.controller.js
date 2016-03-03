@@ -48,7 +48,6 @@
       leapController.player.record();
       leapController.controller.on('playback.recordingFinished', function(){
         $scope.view.unsavedRecording = true;
-        $log.log("recording finished");
         $scope.$apply();
       });
     };
@@ -58,16 +57,13 @@
       Gesture.destroy({id : $scope.view.currentGestureId}, function(response){
         $scope.view.loading = false;
         loadGestures();
-        $log.log(response);
       });
     };
 
     $scope.save = function() {
       var gesture = leapController.player.recording.export('lz');
-      //var gesture = "N4IgtgpgLghgJjWIBcoBmB7ATmRA1CLAZwEsMA7FAJgBoQBzCcwx";
       var newGesture = new Gesture({'data': gesture});
       newGesture.$save().then(function(response){
-        $log.log("save response: ", response);
         $scope.view.unsavedRecording = false;
         loadGestures();
       });
@@ -83,14 +79,6 @@
     };
 
     loadGestures();
-
-    /*
-    $http.get("/api/gestures/20").then(function(response){
-      console.log(response);
-    }, function(error){
-      console.error(error);
-    });
-    */
 
   }
 
