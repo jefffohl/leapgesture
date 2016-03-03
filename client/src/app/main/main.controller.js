@@ -10,7 +10,8 @@
 
     $scope.view = {
       loading : false,
-      currentGestureId : null
+      currentGestureId : null,
+      unsavedRecording : false
     };
 
     var Gesture = $resource("/api/gestures/:id", { id: "@id" },
@@ -32,6 +33,7 @@
     };
 
     $scope.selectGesture = function(id) {
+      $scope.view.unsavedRecording = false;
       $scope.view.loading = true;
       // get the recording from the server
       Gesture.show({id : id}, function(response){
@@ -44,6 +46,11 @@
 
     $scope.record = function() {
       leapController.player.record();
+      leapController.controller.on('playback.recordingFinished', function(){
+        $scope.view.unsavedRecording = true;
+        $log.log("recording finished");
+        $scope.$apply();
+      });
     };
 
     $scope.delete = function() {
@@ -61,6 +68,8 @@
       var newGesture = new Gesture({'data': gesture});
       newGesture.$save().then(function(response){
         $log.log("save response: ", response);
+        $scope.view.unsavedRecording = false;
+        loadGestures();
       });
     };
 

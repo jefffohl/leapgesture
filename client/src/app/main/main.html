@@ -10,7 +10,7 @@
       <div class="col-md-12">
         <button class="btn btn-default" ng-click="record()"><span class="glyphicon glyphicon-record"></span> Record</button>
         <button class="btn btn-default" ng-disabled="!player.recording" ng-click="play()"><span class="glyphicon glyphicon-play"></span> Play</button>
-        <button class="btn btn-default" ng-disabled="!player.recording" ng-click="save()"><span class="glyphicon glyphicon-save"></span> Save</button>
+        <button class="btn btn-default" ng-disabled="!view.unsavedRecording" ng-click="save()"><span class="glyphicon glyphicon-save"></span> Save</button>
         <button class="btn btn-default" ng-disabled="!player.recording" ng-click="delete()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
       </div>
     </div>
