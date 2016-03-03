@@ -1,22 +1,22 @@
-/*    
- * LeapJS-Plugins  - v0.1.11 - 2015-06-30    
- * http://github.com/leapmotion/leapjs-plugins/    
- *    
- * Copyright 2015 LeapMotion, Inc    
- *    
- * Licensed under the Apache License, Version 2.0 (the "License");    
- * you may not use this file except in compliance with the License.    
- * You may obtain a copy of the License at    
- *    
- *     http://www.apache.org/licenses/LICENSE-2.0    
- *    
- * Unless required by applicable law or agreed to in writing, software    
- * distributed under the License is distributed on an "AS IS" BASIS,    
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.    
- * See the License for the specific language governing permissions and    
- * limitations under the License.    
- *    
- */    
+/*
+ * LeapJS-Plugins  - v0.1.11 - 2015-06-30
+ * http://github.com/leapmotion/leapjs-plugins/
+ *
+ * Copyright 2015 LeapMotion, Inc
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
 
 //CoffeeScript generated from main/bone-hand/leap.bone-hand.coffee
 (function() {
@@ -1837,6 +1837,24 @@ Recording.prototype = {
       callback.call(this, responseData.frames);
     }
 
+  },
+
+  loadCompressedRecording: function(compressedData, callback) {
+    var decompressedData = this.decompress(compressedData);
+    decompressedData = JSON.parse(decompressedData);
+    if (decompressedData.metadata.formatVersion == 2) {
+      decompressedData.frames = this.unPackFrameData(decompressedData.frames);
+    }
+
+    this.metadata = decompressedData.metadata;
+
+    console.log('Recording loaded:', this.metadata);
+
+    this.loading = false;
+
+    if (callback) {
+      callback.call(this, decompressedData.frames);
+    }
   }
 
 };
@@ -2170,7 +2188,7 @@ Recording.prototype = {
 
 
     // Accepts a hash with any of
-    // URL, recording, metadata
+    // URL, recording, metadata, compressedRecording
     // once loaded, the recording is immediately activated
     setRecording: function (options) {
       var player = this;
@@ -2231,6 +2249,10 @@ Recording.prototype = {
           player.controller.emit('playback.ajax:complete', player, this);
         });
 
+      } else if (options.compressedRecording) {
+        this.recording.loadCompressedRecording(options.compressedRecording, function(frames){
+          loadComplete.call(this, frames);
+        });
       }
 
 

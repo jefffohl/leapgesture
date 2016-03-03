@@ -10,7 +10,7 @@
 
     var controller = new Leap.Controller({background: true})
         .use('playback', {
-          recording: '/api/gestures/20/data.lz', // this is a test
+          // recording: '/api/gestures/20/data.lz', // this is a test
           loop: false,
           pauseHotkey: false,
           pauseOnHand: false,

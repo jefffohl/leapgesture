@@ -22,18 +22,19 @@
 
     $scope.gestures = [];
 
-    // $scope.player = player;
+    $scope.player = leapController.player;
 
     $scope.play = function(id) {
-      leapController.player.toggle();
+      leapController.player.setRecording({'compressedRecording' : $scope.gestures[id].data});
+      leapController.player.play();
     };
 
     $scope.record = function() {
-      player.record();
+      leapController.player.record();
     };
 
     $scope.save = function() {
-      var gesture = player.recording.export('lz');
+      var gesture = leapController.player.recording.export('lz');
       //var gesture = "N4IgtgpgLghgJjWIBcoBmB7ATmRA1CLAZwEsMA7FAJgBoQBzCcwx";
       var newGesture = new Gesture({'data': gesture});
       newGesture.$save().then(function(response){
