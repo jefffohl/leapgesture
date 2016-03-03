@@ -6,9 +6,11 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($scope, leapController, $resource, $log, $http) {
+  function MainController($scope, leapController, $resource) {
 
-    $scope.view = {
+    var vm = this;
+
+    vm.view = {
       loading : false,
       currentGestureId : null,
       unsavedRecording : false
@@ -24,57 +26,57 @@
       }
     );
 
-    $scope.gestures = [];
+    vm.gestures = [];
 
-    $scope.player = leapController.player;
+    vm.player = leapController.player;
 
-    $scope.play = function() {
+    vm.play = function() {
       leapController.player.play();
     };
 
-    $scope.selectGesture = function(id) {
-      $scope.view.unsavedRecording = false;
-      $scope.view.loading = true;
+    vm.selectGesture = function(id) {
+      vm.view.unsavedRecording = false;
+      vm.view.loading = true;
       // get the recording from the server
       Gesture.show({id : id}, function(response){
         leapController.player.setRecording({'compressedRecording' : response.data.data});
-        $scope.view.currentGestureId = response.data.id;
-        $scope.view.loading = false;
-        $scope.play();
+        vm.view.currentGestureId = response.data.id;
+        vm.view.loading = false;
+        vm.play();
       });
     };
 
-    $scope.record = function() {
+    vm.record = function() {
       leapController.player.record();
       leapController.controller.on('playback.recordingFinished', function(){
-        $scope.view.unsavedRecording = true;
+        vm.view.unsavedRecording = true;
         $scope.$apply();
       });
     };
 
-    $scope.delete = function() {
-      $scope.view.loading = true;
-      Gesture.destroy({id : $scope.view.currentGestureId}, function(response){
-        $scope.view.loading = false;
+    vm.delete = function() {
+      vm.view.loading = true;
+      Gesture.destroy({id : vm.view.currentGestureId}, function(){
+        vm.view.loading = false;
         loadGestures();
       });
     };
 
-    $scope.save = function() {
+    vm.save = function() {
       var gesture = leapController.player.recording.export('lz');
       var newGesture = new Gesture({'data': gesture});
-      newGesture.$save().then(function(response){
-        $scope.view.unsavedRecording = false;
+      newGesture.$save().then(function(){
+        vm.view.unsavedRecording = false;
         loadGestures();
       });
     };
 
     // We can retrieve a collection from the server
     var loadGestures = function() {
-      $scope.view.loading = true;
+      vm.view.loading = true;
       Gesture.index(function(response) {
-        $scope.gestures = response.data;
-        $scope.view.loading = false;
+        vm.gestures = response.data;
+        vm.view.loading = false;
       });
     };
 

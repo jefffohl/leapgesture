@@ -1,3 +1,4 @@
+/* global Leap:false */
 (function() {
   'use strict';
 
