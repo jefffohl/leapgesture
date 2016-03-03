@@ -11,15 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160302234333) do
+ActiveRecord::Schema.define(version: 20160303001932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "gestures", force: :cascade do |t|
-    t.text     "data",                                       null: false
-    t.datetime "created_at", default: '2016-03-03 00:04:42', null: false
-    t.datetime "updated_at", default: '2016-03-03 00:04:42', null: false
+    t.text     "data",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
