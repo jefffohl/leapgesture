@@ -8,7 +8,9 @@
   /** @ngInject */
   function MainController($scope, leapController, $resource, $log, $http) {
 
-    //var player = leapController.controller.plugins.playback.player;
+    $scope.view = {
+      loading : false
+    };
 
     var Gesture = $resource("/api/gestures/:id", { id: "@id" },
       {
@@ -25,9 +27,11 @@
     $scope.player = leapController.player;
 
     $scope.play = function(id) {
+      $scope.view.loading = true;
       // get the recording from the server
       Gesture.show({id : id}, function(response){
         leapController.player.setRecording({'compressedRecording' : response.data.data});
+        $scope.view.loading = false;
         leapController.player.play();
       });
     };
@@ -46,9 +50,10 @@
     };
 
     // We can retrieve a collection from the server
-
+    $scope.view.loading = true;
     Gesture.index(function(response) {
       $scope.gestures = response.data;
+      $scope.view.loading = false;
     });
 
     /*
