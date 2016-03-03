@@ -38,6 +38,7 @@
         leapController.player.setRecording({'compressedRecording' : response.data.data});
         $scope.view.currentGestureId = response.data.id;
         $scope.view.loading = false;
+        $scope.play();
       });
     };
 

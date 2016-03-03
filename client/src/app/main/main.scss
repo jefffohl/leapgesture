@@ -9,5 +9,10 @@
     .btn-default {
       position:relative;
     }
+    .selected {
+      background-color:$brand-primary;
+      color:#fff;
+      border-color:$brand-primary;
+    }
   }
 }

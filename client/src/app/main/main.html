@@ -3,7 +3,7 @@
   <div class="controls">
     <div class="row gestures">
       <div class="col-md-12 btn-group">
-        <button ng-repeat="gesture in gestures" class="btn btn-default" ng-click="selectGesture(gesture.id)">{{$index + 1}}</button>
+        <button ng-repeat="gesture in gestures" class="btn btn-default" ng-class="{ selected : gesture.id === view.currentGestureId }" ng-click="selectGesture(gesture.id)">{{$index + 1}}</button>
       </div>
     </div>
     <div class="row">
