@@ -15,7 +15,7 @@ group :test do
   gem 'rspec-rails'
 end
 
-ruby "2.2.3p173"
+ruby "2.2.3"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
