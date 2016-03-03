@@ -5,15 +5,15 @@ class GesturesController < ApplicationController
   # GET /gestures
   # GET /gestures.json
   def index
-    @gestures = Gesture.all
+    @gestures = Gesture.select('id,created_at,updated_at')
 
-    render json: @gestures
+    render json: {:data => @gestures}
   end
 
   # GET /gestures/1
   # GET /gestures/1.json
   def show
-    render json: @gesture
+    render json: {:data => @gesture}
   end
 
   # GET /gestures?fields=

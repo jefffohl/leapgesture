@@ -13,7 +13,7 @@
     var Gesture = $resource("/api/gestures/:id", { id: "@id" },
       {
         'create':  { method: 'POST' },
-        'index':   { method: 'GET', isArray: true },
+        'index':   { method: 'GET', isArray: false },
         'show':    { method: 'GET', isArray: false },
         'update':  { method: 'PUT' },
         'destroy': { method: 'DELETE' }
@@ -25,8 +25,11 @@
     $scope.player = leapController.player;
 
     $scope.play = function(id) {
-      leapController.player.setRecording({'compressedRecording' : $scope.gestures[id].data});
-      leapController.player.play();
+      // get the recording from the server
+      Gesture.show({id : id}, function(response){
+        leapController.player.setRecording({'compressedRecording' : response.data.data});
+        leapController.player.play();
+      });
     };
 
     $scope.record = function() {
@@ -45,12 +48,7 @@
     // We can retrieve a collection from the server
 
     Gesture.index(function(response) {
-      console.log(response);
-      angular.forEach(response, function(value){
-        if (value.constructor.name === "Resource") {
-          $scope.gestures.push(value);
-        }
-      });
+      $scope.gestures = response.data;
     });
 
     /*
