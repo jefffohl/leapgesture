@@ -9,7 +9,8 @@
   function MainController($scope, leapController, $resource, $log, $http) {
 
     $scope.view = {
-      loading : false
+      loading : false,
+      currentGestureId : null
     };
 
     var Gesture = $resource("/api/gestures/:id", { id: "@id" },
@@ -26,18 +27,31 @@
 
     $scope.player = leapController.player;
 
-    $scope.play = function(id) {
+    $scope.play = function() {
+      leapController.player.play();
+    };
+
+    $scope.selectGesture = function(id) {
       $scope.view.loading = true;
       // get the recording from the server
       Gesture.show({id : id}, function(response){
         leapController.player.setRecording({'compressedRecording' : response.data.data});
+        $scope.view.currentGestureId = response.data.id;
         $scope.view.loading = false;
-        leapController.player.play();
       });
     };
 
     $scope.record = function() {
       leapController.player.record();
+    };
+
+    $scope.delete = function() {
+      $scope.view.loading = true;
+      Gesture.destroy({id : $scope.view.currentGestureId}, function(response){
+        $scope.view.loading = false;
+        loadGestures();
+        $log.log(response);
+      });
     };
 
     $scope.save = function() {
@@ -50,11 +64,15 @@
     };
 
     // We can retrieve a collection from the server
-    $scope.view.loading = true;
-    Gesture.index(function(response) {
-      $scope.gestures = response.data;
-      $scope.view.loading = false;
-    });
+    var loadGestures = function() {
+      $scope.view.loading = true;
+      Gesture.index(function(response) {
+        $scope.gestures = response.data;
+        $scope.view.loading = false;
+      });
+    };
+
+    loadGestures();
 
     /*
     $http.get("/api/gestures/20").then(function(response){

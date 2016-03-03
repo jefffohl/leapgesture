@@ -3,4 +3,11 @@
   bottom:0;
   height:100px;
   z-index:1;
+
+  .gestures {
+    padding-bottom:15px;
+    .btn-default {
+      position:relative;
+    }
+  }
 }

@@ -1,15 +1,17 @@
 <div class="container">
 <div class="loading" ng-show="view.loading"><span class="loading-spin"></span></div>
   <div class="controls">
-    <div class="row">
-      <div class="col-md-12">
-        <button class="btn btn-default" ng-click="record()">Record</button>
-        <button class="btn btn-default" ng-disabled="!player.recording" ng-click="save()">Save</button>
+    <div class="row gestures">
+      <div class="col-md-12 btn-group">
+        <button ng-repeat="gesture in gestures" class="btn btn-default" ng-click="selectGesture(gesture.id)">{{$index + 1}}</button>
       </div>
     </div>
-    <div class="row gestures">
+    <div class="row">
       <div class="col-md-12">
-        <button ng-repeat="gesture in gestures" class="btn btn-default" ng-click="play(gesture.id)">{{$index}}</button>
+        <button class="btn btn-default" ng-click="record()"><span class="glyphicon glyphicon-record"></span> Record</button>
+        <button class="btn btn-default" ng-disabled="!player.recording" ng-click="play()"><span class="glyphicon glyphicon-play"></span> Play</button>
+        <button class="btn btn-default" ng-disabled="!player.recording" ng-click="save()"><span class="glyphicon glyphicon-save"></span> Save</button>
+        <button class="btn btn-default" ng-disabled="!player.recording" ng-click="delete()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
       </div>
     </div>
   </div>
