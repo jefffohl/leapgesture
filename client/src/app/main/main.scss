@@ -4,11 +4,17 @@
   position:absolute;
   z-index:1;
   height:100%;
+  span.record {
+    display:inline-block;
+    padding:0 5px;
+    border:solid 1px #fff;
+    border-radius:3px;
+  }
   .gestures {
     margin:0;
     padding:0;
     list-style:none;
-    max-height:500px;
+    max-height:300px;
     overflow:auto;
     margin-top:20px;
     li {

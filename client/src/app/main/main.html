@@ -3,7 +3,13 @@
   <div class="row">
     <div class="controls col-md-3">
       <h1>LeapGesture</h1>
-      <p>This app requires a Leap Motion controller connected to your computer. Record hand gestures, save them, and play them back.</p>
+      <p>This app requires a Leap Motion controller connected to your computer. Record hand gestures, save them, and play them back. To record a new gesture:</p>
+      <ul>
+        <li>Click <span class="record">Record</span></li>
+        <li>Put your hand over the the Leap Motion controller</li>
+        <li>The recording will stop when you move your hands away</li>
+        <li>You will be prompted to save your gesture</li>
+      </ul>
       <ul class="gestures">
           <li ng-repeat="gesture in main.gestures" ng-class="{ selected : gesture.id === main.view.currentGestureId }"><span ng-click="main.selectGesture(gesture.id)">{{gesture.name}}</span></li>
       </ul>
