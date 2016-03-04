@@ -13,11 +13,11 @@ gulp.task('partials', function () {
     path.join(conf.paths.src, '/app/**/*.html'),
     path.join(conf.paths.tmp, '/serve/app/**/*.html')
   ])
-    .pipe($.minifyHtml({
-      empty: true,
-      spare: true,
-      quotes: true
-    }))
+    //.pipe($.minifyHtml({
+    //  empty: true,
+    //  spare: true,
+    //  quotes: true
+    //}))
     .pipe($.angularTemplatecache('templateCacheHtml.js', {
       module: 'leapgesture',
       root: 'app'
