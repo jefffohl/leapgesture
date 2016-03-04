@@ -6,9 +6,17 @@
     .controller('SaveRecordingModalController', SaveRecordingModalController);
 
   /** @ngInject */
-  function SaveRecordingModalController($uibModalInstance) {
+  function SaveRecordingModalController($scope, $uibModalInstance) {
 
-    var vm = this;
+    $scope.gestureName = "My Gesture";
+
+    $scope.save = function() {
+      $scope.$close($scope.gestureName);
+    }
+
+    $scope.cancel = function() {
+      $scope.$dismiss("Dismissed");
+    }
 
   }
 })();

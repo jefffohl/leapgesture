@@ -13,6 +13,9 @@
     vm.view = {
       loading : false,
       currentGestureId : null,
+      recordedGesture : {
+        name : "My Gesture"
+      },
       unsavedRecording : false
     };
 
@@ -29,6 +32,23 @@
     vm.gestures = [];
 
     vm.player = leapController.player;
+
+    leapController.controller.on('playback.recordingFinished', function(){
+      //vm.view.unsavedRecording = true;
+      //$scope.$apply();
+      var modalInstance = $uibModal.open({
+        animation: true,
+        templateUrl: 'app/main/saveRecordingModal.html',
+        controller: 'SaveRecordingModalController',
+        controllerAs: 'modal',
+        size: 'sm'
+      });
+
+      modalInstance.result.then(function (name) {
+        vm.view.recordedGesture.name = name;
+        vm.save();
+      });
+    });
 
 
     vm.play = function() {
@@ -49,23 +69,6 @@
 
     vm.record = function() {
       leapController.player.record();
-      leapController.controller.on('playback.recordingFinished', function(){
-        //vm.view.unsavedRecording = true;
-        //$scope.$apply();
-        var modalInstance = $uibModal.open({
-          animation: true,
-          templateUrl: 'app/main/saveRecordingModal.html',
-          controller: 'SaveRecordingModalController',
-          controllerAs: 'modal',
-          size: 'lg'
-        });
-
-        modalInstance.result.then(function (selectedItem) {
-          $log.info(selectedItem);
-            }, function () {
-          $log.info('Modal dismissed at: ' + new Date());
-        });
-      });
     };
 
     vm.delete = function() {
@@ -78,7 +81,7 @@
 
     vm.save = function() {
       var gesture = leapController.player.recording.export('lz');
-      var newGesture = new Gesture({'data': gesture});
+      var newGesture = new Gesture({'data': gesture, 'name' : vm.view.recordedGesture.name});
       newGesture.$save().then(function(){
         vm.view.unsavedRecording = false;
         loadGestures();

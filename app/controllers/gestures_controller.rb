@@ -5,7 +5,7 @@ class GesturesController < ApplicationController
   # GET /gestures
   # GET /gestures.json
   def index
-    @gestures = Gesture.select('id,created_at,updated_at')
+    @gestures = Gesture.select('id,name,created_at,updated_at')
 
     render json: {:data => @gestures}
   end
@@ -63,6 +63,6 @@ class GesturesController < ApplicationController
     end
 
     def gesture_params
-      params.permit(:data)
+      params.permit(:data,:name)
     end
 end
