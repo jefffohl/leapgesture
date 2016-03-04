@@ -16,6 +16,7 @@
       recordedGesture : {
         name : "My Gesture"
       },
+      playing : false,
       unsavedRecording : false
     };
 
@@ -50,13 +51,29 @@
       });
     });
 
+    leapController.controller.on('playback.playbackFinished', function(){
+      vm.view.playing = false;
+      $scope.$apply();
+    });
+
+    vm.toggle = function() {
+      vm.view.playing = !vm.view.playing;
+      vm.player.toggle();
+    };
 
     vm.play = function() {
+      vm.view.playing = true;
       leapController.player.play();
+    };
+
+    vm.pause = function() {
+      vm.view.playing = false;
+      leapController.player.pause();
     };
 
     vm.clear = function() {
       leapController.player.stop();
+      vm.view.playing = false;
     };
 
     vm.selectGesture = function(id) {
@@ -65,6 +82,7 @@
         if (vm.player.playing) {
           vm.player.stop();
         }
+        vm.view.playing = false;
         vm.clear();
         return;
       }
