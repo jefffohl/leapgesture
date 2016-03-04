@@ -9,7 +9,7 @@
       </ul>
       <div class="row">
         <div class="col-md-12">
-          <button class="btn btn-default" ng-click="main.record()"><span class="glyphicon glyphicon-record"></span> Record</button>
+          <button class="btn" ng-click="main.record()" ng-class="{ 'btn-danger' : main.view.recording, 'btn-default' : !main.view.recording }"><span class="glyphicon glyphicon-record"></span> Record</button>
           <button class="btn btn-default play-pause" ng-disabled="!main.player.recording || !main.view.currentGestureId" ng-click="main.toggle()">
             <span ng-show="!main.view.playing"><span class="glyphicon glyphicon-play"></span> Play</span>
             <span ng-show="main.view.playing"><span class="glyphicon glyphicon-pause"></span> Pause</span>

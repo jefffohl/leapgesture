@@ -17,6 +17,7 @@
         name : "My Gesture"
       },
       playing : false,
+      recording : false,
       unsavedRecording : false
     };
 
@@ -35,6 +36,7 @@
     vm.player = leapController.player;
 
     leapController.controller.on('playback.recordingFinished', function(){
+      vm.view.recording = false;
       //vm.view.unsavedRecording = true;
       //$scope.$apply();
       var modalInstance = $uibModal.open({
@@ -98,6 +100,12 @@
     };
 
     vm.record = function() {
+      if (vm.view.recording) {
+        vm.view.recording = false;
+        vm.player.pause();
+        return;
+      }
+      vm.view.recording = true;
       leapController.player.record();
     };
 
