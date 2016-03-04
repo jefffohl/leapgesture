@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($scope, leapController, $resource) {
+  function MainController($scope, leapController, $resource, $uibModal, $log) {
 
     var vm = this;
 
@@ -30,6 +30,7 @@
 
     vm.player = leapController.player;
 
+
     vm.play = function() {
       leapController.player.play();
     };
@@ -49,8 +50,21 @@
     vm.record = function() {
       leapController.player.record();
       leapController.controller.on('playback.recordingFinished', function(){
-        vm.view.unsavedRecording = true;
-        $scope.$apply();
+        //vm.view.unsavedRecording = true;
+        //$scope.$apply();
+        var modalInstance = $uibModal.open({
+          animation: true,
+          templateUrl: 'app/main/saveRecordingModal.html',
+          controller: 'SaveRecordingModalController',
+          controllerAs: 'modal',
+          size: 'lg'
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+          $log.info(selectedItem);
+            }, function () {
+          $log.info('Modal dismissed at: ' + new Date());
+        });
       });
     };
 

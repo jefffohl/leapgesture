@@ -2,6 +2,6 @@
   'use strict';
 
   angular
-    .module('leapgesture', ['ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'ngResource', 'ui.router', 'ui.bootstrap', 'toastr', 'ui-rangeSlider']);
+    .module('leapgesture', ['ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAnimate', 'ngAria', 'ngResource', 'ui.router', 'ui.bootstrap', 'toastr', 'ui-rangeSlider']);
 
 })();
