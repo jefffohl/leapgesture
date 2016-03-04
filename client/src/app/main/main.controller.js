@@ -105,6 +105,7 @@
         vm.player.pause();
         return;
       }
+      vm.view.currentGestureId = null;
       vm.view.recording = true;
       leapController.player.record();
     };
