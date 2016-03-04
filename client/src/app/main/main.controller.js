@@ -55,7 +55,19 @@
       leapController.player.play();
     };
 
+    vm.clear = function() {
+      leapController.player.stop();
+    };
+
     vm.selectGesture = function(id) {
+      if (id === vm.view.currentGestureId) {
+        vm.view.currentGestureId = null;
+        if (vm.player.playing) {
+          vm.player.stop();
+        }
+        vm.clear();
+        return;
+      }
       vm.view.unsavedRecording = false;
       vm.view.loading = true;
       // get the recording from the server
