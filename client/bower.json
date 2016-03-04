@@ -2,6 +2,7 @@
   "name": "leapgesture",
   "version": "0.0.0",
   "dependencies": {
+    "three.js": "*",
     "angular-cookies": "~1.4.2",
     "angular-touch": "~1.4.2",
     "angular-sanitize": "~1.4.2",
@@ -18,8 +19,7 @@
     "leapjs": "^0.6.4",
     "leapjs-plugins": "^0.1.11",
     "leapjs-rigged-hand": "^0.1.4",
-    "angular-rangeslider": "^0.0.14",
-    "three.js": "*"
+    "angular-rangeslider": "^0.0.14"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.2"

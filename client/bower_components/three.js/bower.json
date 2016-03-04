@@ -2,7 +2,7 @@
 	"name": "three.js",
 	"homepage": "http://threejs.org/",
 	"description": "JavaScript 3D library",
-	"main": ["build/three.js", "examples/controls/TrackballControls.js"],
+	"main": ["build/three.65.js", "build/TrackballControls.65.js"],
 	"keywords": [
 		"three",
 		"threejs",
