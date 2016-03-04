@@ -103,6 +103,8 @@
       if (vm.view.recording) {
         vm.view.recording = false;
         vm.player.pause();
+        vm.player.stop();
+        vm.player.clear();
         return;
       }
       vm.view.currentGestureId = null;
