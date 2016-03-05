@@ -10,13 +10,16 @@
     border:solid 1px #fff;
     border-radius:3px;
   }
+  .gestures-header {
+    margin-top:25px;
+  }
   .gestures {
     margin:0;
     padding:0;
     list-style:none;
     max-height:300px;
     overflow:auto;
-    margin-top:20px;
+    margin-top:10px;
     li {
       padding:0;
       margin:0;

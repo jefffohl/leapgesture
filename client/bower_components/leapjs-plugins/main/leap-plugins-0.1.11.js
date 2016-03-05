@@ -1848,8 +1848,6 @@ Recording.prototype = {
 
     this.metadata = decompressedData.metadata;
 
-    console.log('Recording loaded:', this.metadata);
-
     this.loading = false;
 
     if (callback) {

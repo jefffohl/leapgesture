@@ -44,7 +44,7 @@
         templateUrl: 'app/main/saveRecordingModal.html',
         controller: 'SaveRecordingModalController',
         controllerAs: 'modal',
-        size: 'sm'
+        size: 'lg'
       });
 
       modalInstance.result.then(function (name) {
@@ -119,9 +119,18 @@
         loadGestures();
       });
     };
-
+    /*
+    var trimRecording = function(recording) {
+      var decompressed = leapController.player.recording.decompress(recording);
+      $log.log(JSON.parse(decompressed));
+      return recording;
+    };
+    */
     vm.save = function() {
+      //leapController.player.setFrameIndex(leapController.player.recording.frameCount - 1);
+      // $log.log(leapController.player.recording);
       var gesture = leapController.player.recording.export('lz');
+      //gesture = trimRecording(gesture);
       var newGesture = new Gesture({'data': gesture, 'name' : vm.view.recordedGesture.name});
       newGesture.$save().then(function(){
         vm.view.unsavedRecording = false;

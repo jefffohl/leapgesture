@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="loading" ng-show="main.view.loading"><span class="loading-spin"></span></div>
   <div class="row">
-    <div class="controls col-md-3">
+    <div class="controls col-xs-3">
       <h1>LeapGesture</h1>
       <p>This app requires a Leap Motion controller connected to your computer. Record hand gestures, save them, and play them back. To record a new gesture:</p>
       <ul>
@@ -10,11 +10,12 @@
         <li>The recording will stop when you move your hands away</li>
         <li>You will be prompted to save your gesture</li>
       </ul>
+      <h4 class="gestures-header">Gestures</h4>
       <ul class="gestures">
           <li ng-repeat="gesture in main.gestures" ng-class="{ selected : gesture.id === main.view.currentGestureId }"><span ng-click="main.selectGesture(gesture.id)">{{gesture.name}}</span></li>
       </ul>
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-xs-12">
           <button class="btn" ng-click="main.record()" ng-class="{ 'btn-danger' : main.view.recording, 'btn-default' : !main.view.recording }"><span class="glyphicon glyphicon-record"></span> Record</button>
           <button class="btn btn-default play-pause" ng-disabled="!main.player.recording || !main.view.currentGestureId" ng-click="main.toggle()">
             <span ng-show="!main.view.playing"><span class="glyphicon glyphicon-play"></span> Play</span>
@@ -24,6 +25,9 @@
           <button class="btn btn-default" ng-disabled="!main.player.recording || !main.view.currentGestureId" ng-click="main.delete()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
         </div>
       </div>
+    </div>
+    <div class="player-controller-container col-xs-9">
+      <play-controls></play-controls>
     </div>
   </div>
 </div>
