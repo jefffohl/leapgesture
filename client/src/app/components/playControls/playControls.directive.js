@@ -26,7 +26,11 @@
       restrict : 'E',
       replace : false,
       link : function(scope, element, attrs) {
+        var clientXMin = 0;
+        var clientXMax = 0;
         element.on('mousedown', function(mouseDownEvent){
+          clientXMin = element.offset().left;
+          clientXMax = element.width() + clientXMin;
           setNewFrameIndex(mouseDownEvent);
           $document.on('mousemove', function(mouseMoveEvent){
             setNewFrameIndex(mouseMoveEvent);
@@ -37,7 +41,7 @@
         });
 
         function setNewFrameIndex(event) {
-          if (leapController.player && leapController.player.recording) {
+          if (leapController.player && leapController.player.recording && (event.clientX > clientXMin) && (event.clientX < clientXMax) ) {
             var percentage = event.offsetX / element.width();
             var newFrameIndex = Math.floor(leapController.player.recording.frameCount * percentage);
             leapController.player.setFrameIndex(newFrameIndex);
